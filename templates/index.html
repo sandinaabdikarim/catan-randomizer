@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catan Randomizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Random Generated Catan Map</h1>
+    <button onclick="getHexes()">Generate</button>
+
+    <div id="board-container">
+        <div id="board" class="board"></div>
+    </div>
+
+    <script>
+        function getHexes() {
+            fetch('/api/hexes')
+                .then(response => response.json())
+                .then(data => {
+                    const board = document.getElementById("board");
+                    const boardContainer = document.getElementById("board-container")
+                    board.innerHTML = ''; // Clearing the field before inserting new data
+
+                    boardContainer.style.backgroundImage = 'url("/static/images/empty_background.png")'
+
+                    data.hexes.forEach(rowData => {
+                        const row = document.createElement("div");
+                        row.classList.add("row");
+
+                        rowData.forEach(hex => {
+                            const hexDiv = document.createElement("div");
+                            hexDiv.classList.add("hex");
+
+                            const img = document.createElement("img");
+                            img.src = hex.image;
+                            img.alt = hex.type;
+
+                            const token = document.createElement("div");
+                            token.classList.add("token");
+                            token.textContent = hex.token;
+
+                            hexDiv.appendChild(img);
+                            hexDiv.appendChild(token)
+                            if(hex.token == 1)
+                            {
+                                token.style.display = "none";
+                            }
+                            if(hex.token == 6 || hex.token == 8)
+                            {
+                                token.style.color = "red";
+                                token.style.borderColor = "red";
+                            }
+                            row.appendChild(hexDiv);
+                        });
+
+                        board.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
