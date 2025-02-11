@@ -1,4 +1,10 @@
-body { text-align: center; font-family: Arial, sans-serif; }
+body {
+    background-color: #f9f9f9;
+    color: #444444;
+    text-align: center;
+    font-family: "American Typewriter", sans-serif;
+
+}
 .board {
     display: flex;
     flex-direction: column;
@@ -15,7 +21,7 @@ body { text-align: center; font-family: Arial, sans-serif; }
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 .row {
@@ -49,5 +55,35 @@ body { text-align: center; font-family: Arial, sans-serif; }
     border-style: solid;
     padding: 2px;
 
+}
+
+#classic-btn {
+    background-color: #ff9800;
+    color: white;
+    text-align: center;
+    width: 20%;
+    height: 35px;
+    margin-top: 5px;
+    margin-right: 10px;
+    border: 3px solid white;
+    border-radius: 15px;
+    font-size: medium;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+
+}
+#expanded-btn {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    width: 20%;
+    height: 35px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border: 3px solid white;
+    border-radius: 15px;
+    font-size: medium;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
 

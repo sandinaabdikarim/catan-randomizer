@@ -2,26 +2,32 @@
 <html>
 <head>
     <title>Catan Randomizer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico">
 </head>
 <body>
     <h1>Random Generated Catan Map</h1>
-    <button onclick="getHexes()">Generate</button>
+    <button id="classic-btn" onclick="getHexes(false)">Classic</button>
+    <button id="expanded-btn" onclick="getHexes(true)">Expanded</button>
 
     <div id="board-container">
         <div id="board" class="board"></div>
     </div>
 
     <script>
-        function getHexes() {
-            fetch('/api/hexes')
+        function getHexes(isExtended) {
+            fetch(`/api/hexes?is_extended=${isExtended}`)
                 .then(response => response.json())
                 .then(data => {
                     const board = document.getElementById("board");
                     const boardContainer = document.getElementById("board-container")
                     board.innerHTML = ''; // Clearing the field before inserting new data
 
-                    boardContainer.style.backgroundImage = 'url("/static/images/empty_background.png")'
+                    if (!isExtended) {
+                        boardContainer.style.backgroundImage = 'url("/static/images/empty_background.png")'
+                    } else {
+                        boardContainer.style.backgroundImage = 'none'
+                    }
 
                     data.hexes.forEach(rowData => {
                         const row = document.createElement("div");

@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, render_template
-from randomizer.generator import generate_board
+from flask import Flask, jsonify, render_template, request
+from randomizer.data import generate_classic, generate_expanded
 
 app = Flask(__name__)
 
@@ -19,7 +19,13 @@ def index():
 
 @app.route('/api/hexes')
 def get_hexes():
-    hexes = generate_board()
+
+    is_extended = request.args.get('is_extended', 'false') == 'true'
+    if not is_extended:
+        hexes = generate_classic()
+    else:
+        hexes = generate_expanded()
+
     hexes_with_images = []
     for row in hexes:
         row_data = []
