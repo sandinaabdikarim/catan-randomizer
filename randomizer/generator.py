@@ -3,28 +3,29 @@ from random import randint, randrange
 
 
 def checking_rules(prev_row, curr_num, prev_num, curr_num_idx):
+
+    rules = {
+        "same_numbers": lambda curr_num, prev_num: curr_num == prev_num,
+        "six_or_eight": lambda curr_num, prev_num: (curr_num == 6 and prev_num == 8) or (
+                    curr_num == 8 and prev_num == 6),
+        "check_prev_row": lambda curr_num, prev_row, curr_num_idx: any(
+            (
+                    (curr_num_idx == up_token and curr_num == prev_row[up_token]) or
+                    (abs(curr_num_idx - up_token) == 1 and curr_num == prev_row[up_token]) or
+                    (curr_num + prev_row[up_token] == 14 and (
+                                curr_num_idx == up_token or (abs(curr_num_idx - up_token) == 1)))
+            ) for up_token in range(len(prev_row))
+        )
+    }
+
     is_num_rules_ok = True
 
-    if curr_num == prev_num:
+    if any([
+        rules["same_numbers"](curr_num, prev_num),
+        rules["six_or_eight"](curr_num, prev_num),
+        rules["check_prev_row"](curr_num, prev_row, curr_num_idx)
+    ]):
         is_num_rules_ok = False
-    elif (curr_num == 6 and prev_num == 8) or (curr_num == 8 and prev_num == 6):
-        is_num_rules_ok = False
-    elif curr_num in prev_row and (curr_num != 6 or curr_num != 8):
-        for up_token in range(0, len(prev_row)):
-            if curr_num_idx == up_token and curr_num == prev_row[up_token]:
-                is_num_rules_ok = False
-            elif (abs(curr_num_idx - up_token) == 1) and (curr_num == prev_row[up_token]):
-                is_num_rules_ok = False
-            elif ((curr_num + prev_row[up_token] == 14) and
-                  ((curr_num_idx == up_token) or (abs(curr_num_idx - up_token) == 1))):
-                is_num_rules_ok = False
-                break
-    elif curr_num in [6, 8]:
-        for up_token in range(0, len(prev_row)):
-            if ((curr_num + prev_row[up_token] == 14) and
-                    ((curr_num_idx == up_token) or (abs(curr_num_idx - up_token) == 1))):
-                is_num_rules_ok = False
-                break
 
     return is_num_rules_ok
 
