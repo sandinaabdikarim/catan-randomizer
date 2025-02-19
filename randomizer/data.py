@@ -2,10 +2,9 @@ from randomizer.generator import generate_board
 
 
 def generate_classic():
-    tiles = ["forest", "forest", "forest", "forest", "pasture", "pasture", "pasture", "pasture",
-             "field", "field", "field", "field", "hill", "hill", "hill", "mountain", "mountain", "mountain"]
+    tiles = {"forest": 4, "pasture": 4, "field": 4, "hill": 3, "mountain": 3}
     rows = [3, 4, 5, 4, 3]
-    total_tokens = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12]
+    total_tokens = {1: 1, 2: 2, 3: 2, 4: 2, 5: 2, 6: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 1}
     generated_tiles = [[], [], [], [], []]
     generated_tokens = [[], [], [], [], []]
 
@@ -15,12 +14,9 @@ def generate_classic():
 
 
 def generate_expanded():
-    tiles = ["forest", "forest", "forest", "forest", "pasture", "pasture", "pasture", "pasture",
-             "field", "field", "field", "field", "hill", "hill", "hill", "mountain", "mountain", "mountain",
-             "forest", "forest", "pasture", "pasture", "field", "field", "hill", "hill", "mountain", "mountain"]
+    tiles = {"forest": 6, "pasture": 6, "field": 6, "hill": 5, "mountain": 5}
     rows = [3, 4, 5, 6, 5, 4, 3]
-    total_tokens = [1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 8, 8, 8, 9, 9, 9, 10, 10, 10,
-                    11, 11, 11, 12, 12]
+    total_tokens = {1: 2, 2: 2, 3: 3, 4: 3, 5: 3, 6: 3, 8: 3, 9: 3, 10: 3, 11: 3, 12: 2}
     generated_tiles = [[], [], [], [], [], [], []]
     generated_tokens = [[], [], [], [], [], [], []]
 

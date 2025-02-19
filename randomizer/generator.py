@@ -1,5 +1,5 @@
 import copy
-from random import randint, randrange
+from random import choice
 
 
 def checking_rules(prev_row, curr_num, prev_num, curr_num_idx):
@@ -40,22 +40,21 @@ def generate_tokens(rows, total_tokens, gen_tokens):
             is_token_rules_ok = False
 
             while not is_token_rules_ok and num_of_tries < len(total_tokens) * 3:
-                curr_idx = randrange(0, len(total_tokens))
-                curr_token = total_tokens[curr_idx]
+                curr_token = choice(list(total_tokens.keys()))
                 num_of_tries += 1
 
-                is_token_rules_ok = checking_rules(gen_tokens[row - 1], curr_token, prev_token, token)
-                if is_token_rules_ok:
-                    break
-                else:
-                    continue
+                if total_tokens[curr_token] > 0:
+                    is_token_rules_ok = checking_rules(gen_tokens[row - 1], curr_token, prev_token, token)
+                    if is_token_rules_ok:
+                        break
+                continue
 
             if not is_token_rules_ok:
                 return []
 
             gen_tokens[row].append(curr_token)
             prev_token = curr_token
-            total_tokens.remove(curr_token)
+            total_tokens[curr_token] -= 1
 
     return gen_tokens
 
@@ -66,10 +65,12 @@ def generate_hexes(tiles, gen_numbers, generated_tiles):
             if gen_numbers[row][token] == 1:
                 generated_tiles[row].append("desert")
             else:
-                ran_tile_num = randint(0, len(tiles) - 1)
-                ran_tile = tiles[ran_tile_num]
-                generated_tiles[row].append(ran_tile)
-                tiles.remove(ran_tile)
+                while True:
+                    ran_tile = choice(list(tiles.keys()))
+                    if tiles[ran_tile] > 0:
+                        generated_tiles[row].append(ran_tile)
+                        tiles[ran_tile] -= 1
+                        break
 
     return generated_tiles
 
