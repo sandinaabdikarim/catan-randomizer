@@ -87,16 +87,5 @@ def generate_board(hexes, total_rows, number_tokens, gen_hexes, tokens):
 
     generated_hexes = generate_hexes(hexes.copy(), generated_tokens, gen_hexes)
 
-    generated_board = ()
-
-    for row in range(len(generated_hexes)):
-        dict_for_tuple = ()
-        for item in range(len(generated_hexes[row])):
-            dict_for_tuple_row = {}
-            dict_for_tuple_row[generated_hexes[row][item]] = generated_tokens[row][item]
-            dict_for_tuple = dict_for_tuple + (dict_for_tuple_row,)
-
-        generated_board = generated_board + (dict_for_tuple,)
-
-    return generated_board
+    return generated_tokens, generated_hexes
 

@@ -27,14 +27,13 @@ def get_hexes():
         hexes = generate_expanded()
 
     hexes_with_images = []
-    for row in hexes:
+    for tokens_row, tiles_row in zip(hexes[0], hexes[1]):
         row_data = []
-        for h in row:
-            hex, token = list(h.items())[0]
+        for token, tile in zip(tokens_row, tiles_row):
             row_data.append({
-                "type": hex,
+                "type": tile,
                 "token": token,
-                "image": RESOURCE_IMAGES[hex]})
+                "image": RESOURCE_IMAGES[tile]})
         hexes_with_images.append(row_data)
 
     return jsonify({"hexes": hexes_with_images})  # Sending a two-dimensional array
